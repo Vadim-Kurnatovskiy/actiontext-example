@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            base:
+              content_attachment_byte_size_is_too_big: The attachment file should be less than %{max_content_attachment_mega_byte_size}MB. [%{bytes}/%{max_bytes}]
+            title:
+              blank: You cannot post in the blank.
+              too_long: Exceeds %{count} characters.
+            content:
+              too_long: Exceeds %{max_content_length} characters. [%{length}/%{max_content_length}]
+              attachments_count_is_too_big: The number of attachment images in has exceeded% {max_content_attachments_count}.
+    attributes:
+      post:
+        title: Title
+        content: Content

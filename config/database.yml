@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  min_messages: WARNING
+  username: postgres
+  password: postgres
+  pool: 5
+  timeout: 5000
+  stats_execution_limit: 10
+
+development:
+  <<: *default
+  database: actiontext-development
+
+test:
+  <<: *default
+  database: actiontext-test
+
+production:
+  <<: *default
+  database: actiontext-production
