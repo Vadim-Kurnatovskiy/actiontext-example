@@ -1,26 +1,28 @@
-<figure class="attachment attachment--<%= blob.representable? ? "preview" : "file" %> attachment--<%= blob.filename.extension %>">
+<%
+  figure_class = [
+      "attachment",
+      "attachment--#{blob.representable? ? 'preview' : 'file'}",
+      "attachment--#{blob.filename.extension}",
+  ].join(" ")
+  resize_limit = local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ]
+  blob_representation = blob.representation(resize_to_limit: resize_limit )
+%>
+<figure class=<%=figure_class%>>
   <% if blob.representable? %>
-    <%= image_tag blob.representation(resize_to_limit: local_assigns[:in_gallery] ? [ 800, 600 ] : [ 1024, 768 ]) %>
+    <%= image_tag blob_representation %>
   <% end %>
 
-<%
-=begin%>
- 画像のキャプションを消しております。
-必要に応じてコメント解除をお願いします。 
-<%
-=end%>
-
-  <%
-=begin%>
- <figcaption class="attachment__caption">
+  <figcaption class="attachment__caption">
     <% if caption = blob.try(:caption) %>
       <%= caption %>
     <% else %>
       <span class="attachment__name"><%= blob.filename %></span>
-      <span class="attachment__size"><%= number_to_human_size blob.byte_size %></span>
     <% end %>
-  </figcaption> 
-<%
-=end%>
-
+    |
+    <%
+      # This is the line we added.
+      # Everything else is was already present when the file was created during action text setup
+    %>
+    <%= link_to "Download", rails_blob_path(blob, disposition: "attachment") %>
+  </figcaption>
 </figure>
